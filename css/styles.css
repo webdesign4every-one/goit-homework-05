@@ -23,7 +23,7 @@ button {
 }
 a {
   text-decoration: none;
-  
+
 }
 a:focus {
   box-shadow: none;
@@ -120,6 +120,39 @@ a:focus {
 }
 .contact-list {
   display: flex;
+}
+.nav-link {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  color: var(--body-text-color);
+}
+.nav-link::after{
+    position: absolute;
+    content: "";
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--pressed-color);
+    transform: translateY(4px);
+    transition: transform 300ms linear;
+    display: none;
+    /*transform: scaleX(0);*/
+  }
+.nav-link:hover::after,
+.nav-link:focus::after {
+  /*transform: scaleX(1);*/
+  display: block;
+}
+.nav-link:hover,
+.nav-link:focus,
+.nav-item.current .nav-link{
+  color: var(--pressed-color);
+}
+.nav-item.current .nav-link::after {
+  display: block;
 }
 /*Global Styles*/
 body {
@@ -266,7 +299,7 @@ p {
   height: 40px;
   background-color: var(--brand-color);
   border-radius: 50%;
-   fill: var(--white-color);
+  fill: var(--white-color);
 }
 .team-soc-link {
   width: 100%;
@@ -369,6 +402,28 @@ p {
   gap: 48px 24px;
   overflow: hidden;
 }
+.portfolio-cover-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-cover-text {
+  position: absolute;
+  top: 0;
+  padding: 40px 32px 0 32px;
+  color: var(--white-color);
+  background-color: var(--brand-color);
+  height: 100%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.32px;
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.portfolio-item:hover .portfolio-cover-text {
+  transform: translateY(0);
+}
 .portfolio-item {
   display: flex;
   width: 360px;
@@ -432,4 +487,48 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 47, 66, 0.40);
+  transition: visibility 500ms linear, opacity 300ms linear;
+}
+.backdrop.is-hidden .modal{
+  transform: translate(-500%, -50%);
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 500ms linear;
+  width: 408px;
+  padding: 24px;
+min-height: 584px;
+flex-shrink: 0;
+border-radius: 4px;
+background: var(--modal-background-color);
+box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 2px 1px 0px rgba(0, 0, 0, 0.20);
+}
+.modal-close {
+width: 24px;
+height: 24px;
+fill: var(--accent-color);
+border: 1px rgba(0, 0, 0, 0.10);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-left: auto;
+}
+.modal-close-icon {
+  fill: var(--main-color);
+}
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
